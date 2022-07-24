@@ -20,4 +20,11 @@ class CategoryController extends Controller
 
         return new JsonResponse(status: Response::HTTP_CREATED);
     }
+
+    public function destroy(int $categoryId): Response
+    {
+        $this->repository->delete($categoryId);
+
+        return new JsonResponse(status: Response::HTTP_NO_CONTENT);
+    }
 }
