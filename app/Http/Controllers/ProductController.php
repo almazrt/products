@@ -22,4 +22,11 @@ class ProductController extends Controller
 
         return new JsonResponse(status: Response::HTTP_CREATED);
     }
+
+    public function update(CreatingProductRequest $request, int $productId): Response
+    {
+        $this->service->updateWithCategories($productId, $request->toDTO());
+
+        return new JsonResponse(status: Response::HTTP_NO_CONTENT);
+    }
 }

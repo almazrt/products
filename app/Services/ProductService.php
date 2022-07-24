@@ -15,10 +15,10 @@ class ProductService
         //
     }
 
-    public function createWithCategories(CreatingProductDTO $dto): void
+    public function createWithCategories(CreatingProductDTO $productDTO): void
     {
-        $product = $this->repository->create($dto);
-        $this->attachCategories($product, $dto);
+        $product = $this->repository->create($productDTO);
+        $this->attachCategories($product, $productDTO->categoriesIds);
     }
 
     /**
@@ -27,5 +27,14 @@ class ProductService
     public function attachCategories(Product $product, array $categoriesIds): void
     {
         $product->categories()->attach($categoriesIds);
+    }
+
+    public function updateWithCategories(int $productId, CreatingProductDTO $productDTO): void
+    {
+        /** @var Product $product $product */
+        $product = Product::query()->findOrFail($productId);
+        $this->repository->update($product, $productDTO);
+        $product->categories()->delete();
+        $this->attachCategories($product, $productDTO->categoriesIds);
     }
 }

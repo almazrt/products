@@ -15,10 +15,9 @@ class ProductRepository
         ]);
     }
 
-    public function update(int $productId, CreatingProductDTO $productDTO): void
+    public function update(Product $product, CreatingProductDTO $productDTO): void
     {
-        Product::query()->where(Product::FIELD_ID, $productId)
-            ->update([
+        $product->update([
                 Product::FIELD_TITLE => $productDTO->title,
                 Product::FIELD_PRICE => $productDTO->price,
             ]);
