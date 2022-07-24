@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatingProductRequest;
+use App\Repositories\ProductRepository;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,7 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 class ProductController extends Controller
 {
     public function __construct(
-        private ProductService $service,
+        private ProductService    $service,
+        private ProductRepository $repository,
     )
     {
         //
@@ -26,6 +28,13 @@ class ProductController extends Controller
     public function update(CreatingProductRequest $request, int $productId): Response
     {
         $this->service->updateWithCategories($productId, $request->toDTO());
+
+        return new JsonResponse(status: Response::HTTP_NO_CONTENT);
+    }
+
+    public function destroy(int $productId): Response
+    {
+        $this->repository->delete($productId);
 
         return new JsonResponse(status: Response::HTTP_NO_CONTENT);
     }
