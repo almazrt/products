@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->decimal('price', 10, 2, true);
+            $table->boolean('is_published')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

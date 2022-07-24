@@ -12,6 +12,7 @@ class CreatingProductDTO
     public function __construct(
         public string $title,
         public float  $price,
+        public bool   $isPublished,
         public array  $categoriesIds = [],
     )
     {
@@ -21,6 +22,7 @@ class CreatingProductDTO
     #[ArrayShape([
         'title' => 'string',
         'price' => 'float',
+        'isPublished' => 'bool',
         'categoriesIds' => 'array',
     ])]
     public static function fromArray(array $array): self
@@ -28,6 +30,7 @@ class CreatingProductDTO
         return new self(
             $array['title'],
             $array['price'],
+            (bool)$array['isPublished'],
             $array['categoriesIds'] ?? [],
         );
     }

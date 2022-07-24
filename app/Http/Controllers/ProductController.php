@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\FilterProductDTO;
 use App\Http\Requests\CreatingProductRequest;
+use App\Http\Requests\FilterProductRequest;
 use App\Repositories\ProductRepository;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
@@ -16,6 +18,13 @@ class ProductController extends Controller
     )
     {
         //
+    }
+
+    public function index(FilterProductRequest $request): Response
+    {
+        $products = $this->repository->getProducts($request->toDTO());
+
+        return new JsonResponse($products);
     }
 
     public function store(CreatingProductRequest $request): Response
