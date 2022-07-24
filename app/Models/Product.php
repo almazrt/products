@@ -11,6 +11,11 @@ class Product extends Model
     public const FIELD_TITLE = 'title';
     public const FIELD_PRICE = 'price';
 
+    protected $fillable = [
+        self::FIELD_TITLE,
+        self::FIELD_PRICE,
+    ];
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);

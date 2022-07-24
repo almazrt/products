@@ -2,9 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CreatingProductRequest;
+use App\Services\ProductService;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
-    //
+    public function __construct(
+        private ProductService $service,
+    )
+    {
+        //
+    }
+
+    public function store(CreatingProductRequest $request): Response
+    {
+        $this->service->createWithCategories($request->toDTO());
+
+        return new JsonResponse(status: Response::HTTP_CREATED);
+    }
 }
