@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatingCategoryRequest;
 use App\Repositories\CategoryRepository;
+use App\Services\CategoryService;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
-    public function __construct(private CategoryRepository $repository)
+    public function __construct(
+        private CategoryRepository $repository,
+        private CategoryService    $service,
+    )
     {
         //
     }
@@ -23,7 +27,7 @@ class CategoryController extends Controller
 
     public function destroy(int $categoryId): Response
     {
-        $this->repository->delete($categoryId);
+        $this->service->delete($categoryId);
 
         return new JsonResponse(status: Response::HTTP_NO_CONTENT);
     }
