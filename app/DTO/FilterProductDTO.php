@@ -2,6 +2,8 @@
 
 namespace App\DTO;
 
+use JetBrains\PhpStorm\ArrayShape;
+
 class FilterProductDTO
 {
     public function __construct(
@@ -17,6 +19,15 @@ class FilterProductDTO
         //
     }
 
+    #[ArrayShape([
+        'title' => 'string',
+        'categoryId' => 'int',
+        'categoryName' => 'string',
+        'priceFrom' => 'float',
+        'priceTo' => 'float',
+        'isPublished' => 'bool',
+        'isDeleted' => 'bool',
+    ])]
     public static function fromArray(array $array): self
     {
         return new self(

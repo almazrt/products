@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\CategoryRepository;
 use Exception;
 use Illuminate\Database\QueryException;
+use Throwable;
 
 class CategoryService
 {
@@ -15,6 +16,7 @@ class CategoryService
 
     /**
      * @throws Exception
+     * @throws Throwable
      */
     public function delete(int $categoryId): void
     {
@@ -26,6 +28,8 @@ class CategoryService
             } else {
                 throw $e;
             }
+        } catch (Throwable $e) {
+            throw $e;
         }
     }
 }
